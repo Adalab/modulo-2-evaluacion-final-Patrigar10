@@ -22,11 +22,11 @@ BUSCADOR
 const renderSearchMovies = (objects) => {
   for (const object of objects) {
     const liElement = document.createElement("li");
-    liElement.setAttribute("class", "movie js-movie");
+    liElement.setAttribute("class", "results_movie js-movie");
     liElement.setAttribute("id", object.mal_id);
     searchList.appendChild(liElement);
     const imgElement = document.createElement("img");
-    imgElement.setAttribute("class", "movie_img");
+    imgElement.setAttribute("class", "results_movie_img");
 
     if (object.url === "https://myanimelist.net/anime/38876/UFO") {
       imgElement.setAttribute(
@@ -39,7 +39,7 @@ const renderSearchMovies = (objects) => {
     imgElement.setAttribute("alt", object.titles[0].title);
     liElement.appendChild(imgElement);
     const h3Element = document.createElement("h3");
-    h3Element.setAttribute("class", "movie_title");
+    h3Element.setAttribute("class", "results_movie_title");
     liElement.appendChild(h3Element);
     const h3Content = document.createTextNode(object.titles[0].title);
     h3Element.appendChild(h3Content);
@@ -56,12 +56,12 @@ const renderSearchMovies = (objects) => {
 const renderFavouritesMovies = (objects) => {
   favouritesList.innerHTML = "";
   for (const object of objects) {
-    const liElement = document.createElement("li");
-    liElement.setAttribute("class", "movie js-movie");
-    liElement.setAttribute("id", object.mal_id);
-    favouritesList.appendChild(liElement);
+    const liElement2 = document.createElement("li");
+    liElement2.setAttribute("class", "favs_movie js-movie");
+    liElement2.setAttribute("id", object.mal_id);
+    favouritesList.appendChild(liElement2);
     const imgElement = document.createElement("img");
-    imgElement.setAttribute("class", "movie_img");
+    imgElement.setAttribute("class", "favs_movie_img");
 
     if (object.url === "https://myanimelist.net/anime/38876/UFO") {
       imgElement.setAttribute(
@@ -72,12 +72,19 @@ const renderFavouritesMovies = (objects) => {
       imgElement.setAttribute("src", object.images.jpg.image_url);
     }
     imgElement.setAttribute("alt", object.titles[0].title);
-    liElement.appendChild(imgElement);
+    liElement2.appendChild(imgElement);
     const h3Element = document.createElement("h3");
-    h3Element.setAttribute("class", "movie_title");
-    liElement.appendChild(h3Element);
+    h3Element.setAttribute("class", "favs_movie_title");
+    liElement2.appendChild(h3Element);
     const h3Content = document.createTextNode(object.titles[0].title);
     h3Element.appendChild(h3Content);
+    const deleteIcon = document.createElement("i");
+    deleteIcon.setAttribute(
+      "class",
+      "fa-solid fa-circle-xmark favs_movie_icon"
+    );
+    deleteIcon.setAttribute("style", "color: #eca3a3");
+    liElement2.appendChild(deleteIcon);
   }
 };
 
@@ -107,13 +114,25 @@ searchBtn.addEventListener("click", handleSearch);
             - guardar el nuevo array con las películas favoritas    
             - cambiar el color de fondo y el de la fuente        
             - pintar la nueva lista    
-        */
+ */
 const handleFavs = (event) => {
   const idSelectedMovie = parseInt(event.currentTarget.id);
   const selectedMovie = animes.find((anime) => {
     return idSelectedMovie === anime.mal_id;
   });
+
   allFavourites.push(selectedMovie);
-  console.log(allFavourites);
-  renderFavouritesMovies(allFavourites);
+  localStorage.setItem("favouritesKey", JSON.stringify(allFavourites));
+  const moviesLocalStorage = JSON.parse(localStorage.getItem("favouritesKey"));
+  renderFavouritesMovies(moviesLocalStorage);
 };
+
+const moviesLocalStorage = JSON.parse(localStorage.getItem("favouritesKey"));
+renderFavouritesMovies(moviesLocalStorage);
+
+// Borrar favoritos
+/*
+Cuando la usuaria pulse el botón
+ - se eliminará del array
+
+*/

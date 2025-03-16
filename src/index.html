@@ -5,25 +5,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Series de anime</title>
+    <script src="https://kit.fontawesome.com/ea1e0d8741.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./scss/main.scss">
 </head>
 
 <main class="main">
-    <h1>Buscador de series de anime</h1>
+    <h1 class="search-title">Buscador de series de anime</h1>
     <form class="search" action="">
         <input type="text" class="search_input js-search-input" placeholder="Introduce el anime">
         <button type="submit" class="search_btn js-search-btn">Buscar</button>
         <button type="reset" class="search_resetBtn">Reset</button>
     </form>
     <div class="bothLists">
-        <div>
-            <h1>Resultados</h1>
-            <ul class="js-search-list"></ul>
+        <div class="results">
+            <h1 class="results_title">Resultados</h1>
+            <ul class="js-search-list results_list"></ul>
         </div>
 
-        <div>
-            <h1>Favoritas</h1>
-            <ul class="js-favourites-list"></ul>
+        <div class="favs">
+            <h1 class="favs_title">Favoritas</h1>
+            <ul class="js-favourites-list favs_list"></ul>
         </div>
 
     </div>

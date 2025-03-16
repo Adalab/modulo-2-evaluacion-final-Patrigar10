@@ -1,60 +1,148 @@
+@use "../core/variables" as vars;
+
 .main {
     padding: 40px;
+    background-color: black;
+    min-height: 100vh;
 
 }
 
 .bothLists {
     display: flex;
     flex-direction: row-reverse;
-    justify-content: space-around;
+    gap: 40px;
 
 
 }
 
 
-
+.search-title {
+    color: vars.$bright-blue;
+}
 
 .search {
+    margin-block: 50px;
+    display: flex;
+    gap: 30px;
 
     &_input {
         padding: 10px;
-        border: 2px solid lightblue;
+        border: 2px solid vars.$bright-blue;
+        border-radius: 5px;
+        background-color: black;
+        width: 40vw;
+        color: white;
 
     }
 
     &_btn {
-        background-color: lightblue;
+        background-color: vars.$pale-blue;
         color: white;
-        padding: 10px;
-        border-radius: 10px;
+        padding-inline: 25px;
+        padding-block: 10px;
+        border-radius: 5px;
     }
 
     &_resetBtn {
-        background-color: lightblue;
+        background-color: vars.$pale-blue;
         color: white;
-        padding: 10px;
-        border-radius: 10px;
+        padding-inline: 25px;
+        padding-block: 10px;
+        border-radius: 5px;
     }
 
 }
 
+.results {
 
-.movie {
-    width: 350px;
-    border: 1px solid black;
-    border-radius: 10px;
-    padding: 20px;
-    display: flex;
-    flex-wrap: wrap;
+    width: 75vw;
+    border: 2px solid whitesmoke;
+    border-radius: 5px;
 
 
-    &_img {
-
-        width: 100%;
-    }
 
     &_title {
+        background-color: whitesmoke;
         width: 100%;
+        padding: 10px;
+        text-align: center;
+
     }
 
+    &_list {
+        padding: 20px;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    &_movie {
+        width: 250px;
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 20px;
+
+
+        &_img {
+
+            width: 100%;
+            position: relative;
+        }
+
+        &_title {
+            width: 100%;
+            color: rgb(175, 171, 171);
+
+        }
+
+    }
+
+
+}
+
+.selected-bg {
+    border: 5px solid vars.$bright-blue;
+}
+
+
+.favs {
+
+    width: 20vw;
+    min-width: 300px;
+    border: solid 2px vars.$pale-red;
+    border-radius: 5px;
+
+    &_title {
+        background-color: vars.$pale-red;
+        width: 100%;
+        padding: 10px;
+        text-align: center;
+
+    }
+
+    &_movie {
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+        align-items: center;
+
+
+        &_img {
+
+            width: 80px;
+        }
+
+        &_title {
+            width: 100%;
+            color: vars.$pale-red;
+            font-size: 1rem;
+        }
+
+        &_icon {
+            font-size: 30px;
+        }
+
+    }
 }
