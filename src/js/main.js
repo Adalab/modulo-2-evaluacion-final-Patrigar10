@@ -3,7 +3,9 @@
 const searchInput = document.querySelector(".js-search-input");
 const searchBtn = document.querySelector(".js-search-btn");
 const searchList = document.querySelector(".js-search-list");
-let movies = [];
+let animes = [];
+let allFavourites = [];
+const favouritesList = document.querySelector(".js-favourites-list");
 
 /*
 BUSCADOR
@@ -16,20 +18,18 @@ BUSCADOR
     - pintar aquello que nos interese de cada objeto
 */
 
-//Función evento search
+// Ejecución evento search
 
 const handleSearch = (event) => {
   event.preventDefault();
   searchList.innerHTML = "";
   const searchValue = searchInput.value;
-  //   console.log(searchValue);
   fetch(`https://api.jikan.moe/v4/anime?q=${searchValue}`)
     .then((response) => response.json())
     .then((data) => {
-      //   console.log(data);
-      //   console.log(data.data);
+      animes = data.data;
+
       for (const object of data.data) {
-        console.log(object);
         const liElement = document.createElement("li");
         liElement.setAttribute("class", "movie js-movie");
         liElement.setAttribute("id", object.mal_id);
@@ -52,13 +52,9 @@ const handleSearch = (event) => {
         liElement.appendChild(h3Element);
         const h3Content = document.createTextNode(object.titles[0].title);
         h3Element.appendChild(h3Content);
-        movies = document.querySelectorAll(".js-movie");
-        console.log(movies);
-        // console.log(movies);
 
+        const movies = document.querySelectorAll(".js-movie");
         for (const movie of movies) {
-          //Función añadir favoritas
-
           //EVENTO FAVOURITES
           movie.addEventListener("click", handleFavs);
         }
@@ -80,10 +76,11 @@ searchBtn.addEventListener("click", handleSearch);
             - cambiar el color de fondo y el de la fuente        
             - pintar la nueva lista    
         */
-
 const handleFavs = (event) => {
-  const idSelectedMovie = event.currentTarget.id;
-  //   const favouritesArray = movies.find((movie) => {
-  //     return idSelectedMovie === movie.id;
-  //   });
+  const idSelectedMovie = parseInt(event.currentTarget.id);
+  const selectedMovie = animes.find((anime) => {
+    return idSelectedMovie === anime.mal_id;
+  });
+  allFavourites += selectedMovie;
+  console.log(allFavourites);
 };
