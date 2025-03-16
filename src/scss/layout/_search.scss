@@ -1,6 +1,18 @@
 .main {
     padding: 40px;
+
 }
+
+.bothLists {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+
+
+}
+
+
+
 
 .search {
 

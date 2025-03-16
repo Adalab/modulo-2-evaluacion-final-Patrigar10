@@ -18,8 +18,70 @@ BUSCADOR
     - pintar aquello que nos interese de cada objeto
 */
 
-// Ejecución evento search
+//Función pintar películas buscadas
+const renderSearchMovies = (objects) => {
+  for (const object of objects) {
+    const liElement = document.createElement("li");
+    liElement.setAttribute("class", "movie js-movie");
+    liElement.setAttribute("id", object.mal_id);
+    searchList.appendChild(liElement);
+    const imgElement = document.createElement("img");
+    imgElement.setAttribute("class", "movie_img");
 
+    if (object.url === "https://myanimelist.net/anime/38876/UFO") {
+      imgElement.setAttribute(
+        "src",
+        "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png"
+      );
+    } else {
+      imgElement.setAttribute("src", object.images.jpg.image_url);
+    }
+    imgElement.setAttribute("alt", object.titles[0].title);
+    liElement.appendChild(imgElement);
+    const h3Element = document.createElement("h3");
+    h3Element.setAttribute("class", "movie_title");
+    liElement.appendChild(h3Element);
+    const h3Content = document.createTextNode(object.titles[0].title);
+    h3Element.appendChild(h3Content);
+
+    const movies = document.querySelectorAll(".js-movie");
+    for (const movie of movies) {
+      //EVENTO FAVOURITES
+      movie.addEventListener("click", handleFavs);
+    }
+  }
+};
+
+//Función pintar películas favoritas
+const renderFavouritesMovies = (objects) => {
+  favouritesList.innerHTML = "";
+  for (const object of objects) {
+    const liElement = document.createElement("li");
+    liElement.setAttribute("class", "movie js-movie");
+    liElement.setAttribute("id", object.mal_id);
+    favouritesList.appendChild(liElement);
+    const imgElement = document.createElement("img");
+    imgElement.setAttribute("class", "movie_img");
+
+    if (object.url === "https://myanimelist.net/anime/38876/UFO") {
+      imgElement.setAttribute(
+        "src",
+        "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png"
+      );
+    } else {
+      imgElement.setAttribute("src", object.images.jpg.image_url);
+    }
+    imgElement.setAttribute("alt", object.titles[0].title);
+    liElement.appendChild(imgElement);
+    const h3Element = document.createElement("h3");
+    h3Element.setAttribute("class", "movie_title");
+    liElement.appendChild(h3Element);
+    const h3Content = document.createTextNode(object.titles[0].title);
+    h3Element.appendChild(h3Content);
+  }
+};
+
+// Ejecución evento search
 const handleSearch = (event) => {
   event.preventDefault();
   searchList.innerHTML = "";
@@ -28,37 +90,7 @@ const handleSearch = (event) => {
     .then((response) => response.json())
     .then((data) => {
       animes = data.data;
-
-      for (const object of data.data) {
-        const liElement = document.createElement("li");
-        liElement.setAttribute("class", "movie js-movie");
-        liElement.setAttribute("id", object.mal_id);
-        searchList.appendChild(liElement);
-        const imgElement = document.createElement("img");
-        imgElement.setAttribute("class", "movie_img");
-
-        if (object.url === "https://myanimelist.net/anime/38876/UFO") {
-          imgElement.setAttribute(
-            "src",
-            "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png"
-          );
-        } else {
-          imgElement.setAttribute("src", object.images.jpg.image_url);
-        }
-        imgElement.setAttribute("alt", object.titles[0].title);
-        liElement.appendChild(imgElement);
-        const h3Element = document.createElement("h3");
-        h3Element.setAttribute("class", "movie_title");
-        liElement.appendChild(h3Element);
-        const h3Content = document.createTextNode(object.titles[0].title);
-        h3Element.appendChild(h3Content);
-
-        const movies = document.querySelectorAll(".js-movie");
-        for (const movie of movies) {
-          //EVENTO FAVOURITES
-          movie.addEventListener("click", handleFavs);
-        }
-      }
+      renderSearchMovies(data.data);
     });
 };
 
@@ -81,6 +113,7 @@ const handleFavs = (event) => {
   const selectedMovie = animes.find((anime) => {
     return idSelectedMovie === anime.mal_id;
   });
-  allFavourites += selectedMovie;
+  allFavourites.push(selectedMovie);
   console.log(allFavourites);
+  renderFavouritesMovies(allFavourites);
 };
