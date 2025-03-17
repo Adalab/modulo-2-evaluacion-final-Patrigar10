@@ -8,7 +8,7 @@ Este proyecto es una aplicación web que permite buscar entre una amplia lista d
 - Eliminar favoritos cuando ya no los quieras en tu lista.
 - Persistencia de datos con LocalStorage.
 
-##Tecnologías utilizadas
+## Tecnologías utilizadas
 - HTML, CSS y JavaScript
 - Fetch API para obtener datos
 - LocalStorage para guardar favoritos
