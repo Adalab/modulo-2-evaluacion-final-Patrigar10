@@ -4,8 +4,9 @@ const searchInput = document.querySelector(".js-search-input");
 const searchBtn = document.querySelector(".js-search-btn");
 const searchList = document.querySelector(".js-search-list");
 let animes = [];
-let allFavourites = [];
+let allFavourites = JSON.parse(localStorage.getItem("favouritesKey")) || [];
 const favouritesList = document.querySelector(".js-favourites-list");
+let renderFavouritesMovies = "";
 
 /*
 BUSCADOR
@@ -53,7 +54,7 @@ const renderSearchMovies = (objects) => {
 };
 
 //Función pintar películas favoritas
-const renderFavouritesMovies = (objects) => {
+renderFavouritesMovies = (objects) => {
   favouritesList.innerHTML = "";
   for (const object of objects) {
     const liElement2 = document.createElement("li");
@@ -88,6 +89,10 @@ const renderFavouritesMovies = (objects) => {
   }
 };
 
+if (allFavourites !== []) {
+  renderFavouritesMovies(allFavourites);
+}
+
 // Ejecución evento search
 const handleSearch = (event) => {
   event.preventDefault();
@@ -110,6 +115,7 @@ searchBtn.addEventListener("click", handleSearch);
         - Seleccionar todas las películas
         - Recorrer el array de películas para poder hacer sobre cada una el evento
         - Cuando la usuaria haga click sobre cualquiera de ellas
+            - añadir clases
             - recoger el id de las películas seleccionadas
             - guardar el nuevo array con las películas favoritas    
             - cambiar el color de fondo y el de la fuente        
@@ -117,18 +123,23 @@ searchBtn.addEventListener("click", handleSearch);
  */
 const handleFavs = (event) => {
   const idSelectedMovie = parseInt(event.currentTarget.id);
+
+  // for (const anim of animes) {
+  //   if (idSelectedMovie === anim.mal_id) {
+
+  //   }
+  // }
+
+  //Nuevo array
   const selectedMovie = animes.find((anime) => {
     return idSelectedMovie === anime.mal_id;
   });
-
   allFavourites.push(selectedMovie);
-  localStorage.setItem("favouritesKey", JSON.stringify(allFavourites));
-  const moviesLocalStorage = JSON.parse(localStorage.getItem("favouritesKey"));
-  renderFavouritesMovies(moviesLocalStorage);
-};
 
-const moviesLocalStorage = JSON.parse(localStorage.getItem("favouritesKey"));
-renderFavouritesMovies(moviesLocalStorage);
+  //LocalStorage
+  localStorage.setItem("favouritesKey", JSON.stringify(allFavourites));
+  renderFavouritesMovies(allFavourites);
+};
 
 // Borrar favoritos
 /*
