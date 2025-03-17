@@ -7,6 +7,7 @@ let animes = [];
 let allFavourites = JSON.parse(localStorage.getItem("favouritesKey")) || [];
 const favouritesList = document.querySelector(".js-favourites-list");
 let renderFavouritesMovies = "";
+const resetBtn = document.querySelector(".js-reset-btn");
 
 // //Función para borrar
 const handleDelete = (event) => {
@@ -99,9 +100,14 @@ renderFavouritesMovies = (objects) => {
   }
 };
 
-if (allFavourites !== []) {
-  renderFavouritesMovies(allFavourites);
-}
+//Pintar favoritas desde el LocalStorage
+const savedFavourites = () => {
+  if (allFavourites !== []) {
+    renderFavouritesMovies(allFavourites);
+  }
+};
+
+savedFavourites();
 
 // Ejecución evento search
 const handleSearch = (event) => {
@@ -120,17 +126,7 @@ const handleSearch = (event) => {
 
 searchBtn.addEventListener("click", handleSearch);
 
-/*FAVORITAS
-        Dentro del fecht para que se ejecute cuando hemos obtenido respuesta de la petición y del bucle porque es donde existen las películas
-        - Seleccionar todas las películas
-        - Recorrer el array de películas para poder hacer sobre cada una el evento
-        - Cuando la usuaria haga click sobre cualquiera de ellas
-            - añadir clases
-            - recoger el id de las películas seleccionadas
-            - guardar el nuevo array con las películas favoritas    
-            - cambiar el color de fondo y el de la fuente        
-            - pintar la nueva lista    
- */
+//Función favoritas
 const handleFavs = (event) => {
   const idSelectedMovie = parseInt(event.currentTarget.id);
 
@@ -151,10 +147,11 @@ const handleFavs = (event) => {
   renderFavouritesMovies(allFavourites);
 };
 
-/*
-Borrar favoritos
-- Cuando la usuaria pulse al icono del elemento
-    - recoger el id del elemento clicado
+//Evento y función reset
 
+const handleReset = () => {
+  searchList.innerHTML = "";
+  favouritesList.innerHTML = "";
+};
 
-*/
+resetBtn.addEventListener("click", handleReset);
