@@ -80,17 +80,18 @@
         border: 1px solid black;
         border-radius: 10px;
         padding: 20px;
+        margin: 5px;
+        color: rgb(175, 171, 171);
 
 
         &_img {
-
             width: 100%;
             position: relative;
         }
 
         &_title {
             width: 100%;
-            color: rgb(175, 171, 171);
+
 
         }
 
@@ -99,9 +100,15 @@
 
 }
 
+.results-title {}
+
 .selected-bg {
     border: 5px solid vars.$bright-blue;
+    color: vars.$bright-blue;
+
 }
+
+
 
 
 .favs {

@@ -58,7 +58,7 @@ renderFavouritesMovies = (objects) => {
   favouritesList.innerHTML = "";
   for (const object of objects) {
     const liElement2 = document.createElement("li");
-    liElement2.setAttribute("class", "favs_movie js-movie");
+    liElement2.setAttribute("class", "favs_movie js-movie results-title");
     liElement2.setAttribute("id", object.mal_id);
     favouritesList.appendChild(liElement2);
     const imgElement = document.createElement("img");
@@ -124,11 +124,11 @@ searchBtn.addEventListener("click", handleSearch);
 const handleFavs = (event) => {
   const idSelectedMovie = parseInt(event.currentTarget.id);
 
-  // for (const anim of animes) {
-  //   if (idSelectedMovie === anim.mal_id) {
-
-  //   }
-  // }
+  for (const anime of animes) {
+    if (idSelectedMovie === anime.mal_id) {
+      event.currentTarget.classList.add("selected-bg");
+    }
+  }
 
   //Nuevo array
   const selectedMovie = animes.find((anime) => {
