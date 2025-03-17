@@ -8,16 +8,21 @@ let allFavourites = JSON.parse(localStorage.getItem("favouritesKey")) || [];
 const favouritesList = document.querySelector(".js-favourites-list");
 let renderFavouritesMovies = "";
 
-/*
-BUSCADOR
-- Seleccionar el input, el botón y la ul
-- Cuando la usuaria haga click en buscar:
-    - recoger el valor del input
-    - hacer la petición al servidor
-    - generar un enlace dinámico que incluya el valor de la búsqueda
-    - recorrer los objetos del array
-    - pintar aquello que nos interese de cada objeto
-*/
+// //Función para borrar
+const handleDelete = (event) => {
+  const idToDelete = parseInt(event.currentTarget.id);
+  const selectedFav = allFavourites.findIndex((favourite) => {
+    return favourite.mal_id === idToDelete;
+  });
+  console.log(selectedFav);
+  console.log(allFavourites);
+  const deleteIndex = allFavourites.splice(selectedFav, 1);
+  const remainingFavs = localStorage.setItem(
+    "favouritesKey",
+    JSON.stringify(allFavourites)
+  );
+  renderFavouritesMovies(allFavourites);
+};
 
 //Función pintar películas buscadas
 const renderSearchMovies = (objects) => {
@@ -58,7 +63,7 @@ renderFavouritesMovies = (objects) => {
   favouritesList.innerHTML = "";
   for (const object of objects) {
     const liElement2 = document.createElement("li");
-    liElement2.setAttribute("class", "favs_movie js-movie results-title");
+    liElement2.setAttribute("class", "favs_movie js-fav results-title");
     liElement2.setAttribute("id", object.mal_id);
     favouritesList.appendChild(liElement2);
     const imgElement = document.createElement("img");
@@ -86,6 +91,11 @@ renderFavouritesMovies = (objects) => {
     );
     deleteIcon.setAttribute("style", "color: #eca3a3");
     liElement2.appendChild(deleteIcon);
+  }
+  const favMovies = document.querySelectorAll(".js-fav");
+  for (const favMovie of favMovies) {
+    //EVENTO FAVOURITES
+    favMovie.addEventListener("click", handleDelete);
   }
 };
 
@@ -141,9 +151,10 @@ const handleFavs = (event) => {
   renderFavouritesMovies(allFavourites);
 };
 
-// Borrar favoritos
 /*
-Cuando la usuaria pulse el botón
- - se eliminará del array
+Borrar favoritos
+- Cuando la usuaria pulse al icono del elemento
+    - recoger el id del elemento clicado
+
 
 */
