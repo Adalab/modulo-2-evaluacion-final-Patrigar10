@@ -8,6 +8,7 @@ let allFavourites = JSON.parse(localStorage.getItem("favouritesKey")) || [];
 const favouritesList = document.querySelector(".js-favourites-list");
 let renderFavouritesMovies = "";
 const resetBtn = document.querySelector(".js-reset-btn");
+const resultsMessage = document.querySelector(".js-message");
 
 // //Función para borrar
 const handleDelete = (event) => {
@@ -119,6 +120,8 @@ const handleSearch = (event) => {
     .then((data) => {
       animes = data.data;
       renderSearchMovies(data.data);
+      const pContent = document.createTextNode(data.data.length);
+      resultsMessage.appendChild(pContent);
     });
 };
 
